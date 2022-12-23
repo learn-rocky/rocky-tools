@@ -43,7 +43,7 @@ rsync_run(){
 # You can change v to q if you do not want detailed logging
 # You may also add additional excludes if you don't want to provide certain
 # repositories or architectures.
-opts=(-vrlptDSH --exclude="*.~tmp~" --delete-delay --delay-updates)
+opts=(-vrlptDSH --exclude-from="only-x86_64.txt" --exclude="*.~tmp~.*" --exclude="*..*" --exclude="*.aarch64\.rpm" --exclude="*.s390x\.rpm"  --exclude="*.ppc64le\.rpm"   --delete-delay --delay-updates)
 
 # Please use a mirror geographically close to you for initial sync,
 # or if you are hosting a private mirror(not publicly available).
@@ -53,12 +53,13 @@ opts=(-vrlptDSH --exclude="*.~tmp~" --delete-delay --delay-updates)
 #
 # A complete list of mirrors can be found at
 # https://mirrors.rockylinux.org/mirrormanager/mirrors/Rocky
-src="msync.rockylinux.org::rocky/mirror/pub/rocky"
+#src="msync.rockylinux.org::rocky/mirror/pub/rocky"
+src="rsync://mirrors.radwebhosting.com/rockylinux"
 
 # Your local path. Change to whatever fits your system.
 # $mirrormodule is also used in syslog output.
 mirrormodule="rocky-linux"
-dst="/mnt/mirrorserver/${mirrormodule}"
+dst="/data/${mirrormodule}"
 
 filelistfile="fullfiletimelist-rocky"
 lockfile="$0.lockfile"
